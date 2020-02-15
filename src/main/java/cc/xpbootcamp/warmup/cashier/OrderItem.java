@@ -3,13 +3,13 @@ package cc.xpbootcamp.warmup.cashier;
 public class OrderItem {
 	private String name;
 	private double price;
-	private int qty;
+	private int quantity;
 
-	public OrderItem(String name, double price, int qty) {
+	public OrderItem(String name, double price, int quantity) {
 		super();
 		this.name = name;
 		this.price = price;
-		this.qty = qty;
+		this.quantity = quantity;
 	}
 
 	public String getDescription() {
@@ -21,10 +21,10 @@ public class OrderItem {
 	}
 
 	public int getQuantity() {
-		return qty;
+		return quantity;
 	}
 
     double totalAmount() {
-        return price * qty;
+        return price * quantity;
     }
 }

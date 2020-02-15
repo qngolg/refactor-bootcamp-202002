@@ -18,12 +18,12 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
 
         // print headers
-        printHeaders(output);
+        output.append(getHeaders());
 
         // prints lineItems
         double totalAmount = 0d;
         for (OrderItem orderItem : order.getLineItems()) {
-            printOrderItems(output, orderItem);
+            output.append(getOrderItemDetail(orderItem));
             totalAmount += orderItem.totalAmount();
         }
 
@@ -37,20 +37,14 @@ public class OrderReceipt {
         return output.toString();
     }
 
-    private void printOrderItems(StringBuilder output, OrderItem orderItem) {
-        output.append(orderItem.getDescription());
-        output.append('\t');
-        output.append(orderItem.getPrice());
-        output.append('\t');
-        output.append(orderItem.getQuantity());
-        output.append('\t');
-        output.append(orderItem.totalAmount());
-        output.append('\n');
+    private String getOrderItemDetail(OrderItem orderItem) {
+        return orderItem.getDescription() + '\t'
+                + orderItem.getPrice() + '\t'
+                + orderItem.getQuantity() + '\t'
+                + orderItem.totalAmount() + '\n';
     }
 
-    private void printHeaders(StringBuilder output) {
-        output.append("======Printing Orders======\n");
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
+    private String getHeaders() {
+        return "======Printing Orders======\n" + order.getCustomerName() + order.getCustomerAddress();
     }
 }

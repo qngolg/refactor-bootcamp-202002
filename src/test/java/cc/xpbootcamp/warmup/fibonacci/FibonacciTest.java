@@ -11,4 +11,11 @@ class FibonacciTest {
         int result = fibonacci.calculate(1);
         Assert.assertEquals(1, result);
     }
+
+    @Test
+    void should_return_1_when_calculate_given_position_is_2(){
+        Fibonacci fibonacci = new Fibonacci();
+        int result = fibonacci.calculate(2);
+        Assert.assertEquals(1, result);
+    }
 }

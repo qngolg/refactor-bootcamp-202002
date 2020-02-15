@@ -18,22 +18,13 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
 
         // print headers
-        output.append("======Printing Orders======\n");
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
+        printHeaders(output);
 
         // prints lineItems
         double totSalesTx = 0d;
         double tot = 0d;
         for (OrderItem orderItem : order.getLineItems()) {
-            output.append(orderItem.getDescription());
-            output.append('\t');
-            output.append(orderItem.getPrice());
-            output.append('\t');
-            output.append(orderItem.getQuantity());
-            output.append('\t');
-            output.append(orderItem.totalAmount());
-            output.append('\n');
+            printOrderItems(output, orderItem);
 
             // calculate sales tax @ rate of 10%
             double salesTax = orderItem.totalAmount() * .10;
@@ -49,5 +40,22 @@ public class OrderReceipt {
         // print total amount
         output.append("Total Amount").append('\t').append(tot);
         return output.toString();
+    }
+
+    private void printOrderItems(StringBuilder output, OrderItem orderItem) {
+        output.append(orderItem.getDescription());
+        output.append('\t');
+        output.append(orderItem.getPrice());
+        output.append('\t');
+        output.append(orderItem.getQuantity());
+        output.append('\t');
+        output.append(orderItem.totalAmount());
+        output.append('\n');
+    }
+
+    private void printHeaders(StringBuilder output) {
+        output.append("======Printing Orders======\n");
+        output.append(order.getCustomerName());
+        output.append(order.getCustomerAddress());
     }
 }

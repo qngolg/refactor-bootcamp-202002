@@ -25,12 +25,7 @@ public class OrderReceipt {
         // prints lineItems
         output.append(getOrderItemsDetail());
 
-        double totalAmount = 0d;
-        for (OrderItem orderItem : order.getLineItems()) {
-            totalAmount += orderItem.totalAmount();
-        }
-
-
+        double totalAmount = getTotalAmount();
         double totalSalesTax = totalAmount * .10;
         totalAmount += totalSalesTax;
         // prints the state tax
@@ -39,6 +34,10 @@ public class OrderReceipt {
         // print total amount
         output.append("Total Amount").append('\t').append(totalAmount);
         return output.toString();
+    }
+
+    private double getTotalAmount() {
+        return order.getLineItems().stream().map(OrderItem::totalAmount).count();
     }
 
     private String getOrderItemsDetail() {

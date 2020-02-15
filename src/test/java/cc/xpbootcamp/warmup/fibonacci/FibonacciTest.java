@@ -25,4 +25,11 @@ class FibonacciTest {
         int result = fibonacci.calculate(3);
         Assert.assertEquals(2, result);
     }
+
+    @Test
+    void should_return_3_then_calculate_given_position_is_4(){
+        Fibonacci fibonacci = new Fibonacci();
+        int result = fibonacci.calculate(4);
+        Assert.assertEquals(3, result);
+    }
 }

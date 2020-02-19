@@ -30,7 +30,7 @@ class OrderReceiptTest {
     }
 
     @Test
-    void shouldPrintTitleInformationOnOrder(){
+    void shouldPrintTitleInformationOnOrder() {
         Order order = new Order(null, new ArrayList<>());
         OrderReceipt receipt = new OrderReceipt(order);
 
@@ -39,11 +39,28 @@ class OrderReceiptTest {
     }
 
     @Test
-    void shouldPrintDateInfomationOnOrder(){
-        Order order = new Order(LocalDate.of(2020,2,17), new ArrayList<>());
+    void shouldPrintDateInfomationOnOrder() {
+        Order order = new Order(LocalDate.of(2020, 2, 17), new ArrayList<>());
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
         assertThat(output, containsString("2020年2月17日，星期一"));
+    }
+
+    @Test
+    void shouldPrintLineItemAndSalesTaxInformationNotInWednesday() {
+        List<OrderItem> orderItems = new ArrayList<OrderItem>() {{
+            add(new OrderItem("巧克力", 21.50, 2));
+            add(new OrderItem("小白菜", 10.00, 1));
+        }};
+        LocalDate date = LocalDate.of(2020, 2, 17);
+        OrderReceipt receipt = new OrderReceipt(new Order(date, orderItems));
+
+        String output = receipt.printReceipt();
+        assertThat(output, containsString("巧克力，21.50 × 2，43.00"));
+        assertThat(output, containsString("小白菜，10.00 × 1，10.00"));
+        assertThat(output, containsString("----------------------"));
+        assertThat(output, containsString("税额：5.30"));
+        assertThat(output, containsString("总价：58.30"));
     }
 }

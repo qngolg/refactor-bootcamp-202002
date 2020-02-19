@@ -1,5 +1,6 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 /**
@@ -19,25 +20,27 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
 
-        // print headers
         output.append(getHeaders());
 
-        // prints lineItems
         output.append(getOrderItemsDetail());
 
         double totalAmount = getTotalAmount();
-        double totalSalesTax = totalAmount * .10;
+        double totalSalesTax = getTotalSalesTax(totalAmount);
         totalAmount += totalSalesTax;
-        // prints the state tax
-        output.append("Sales Tax").append('\t').append(totalSalesTax);
 
-        // print total amount
-        output.append("Total Amount").append('\t').append(totalAmount);
+        output.append("----------------------\n");
+        output.append("税额：").append(totalSalesTax);
+        output.append("\n");
+        output.append("总价：").append(totalAmount);
         return output.toString();
     }
 
+    private double getTotalSalesTax(double totalAmount) {
+        return BigDecimal.valueOf(totalAmount).multiply(BigDecimal.valueOf(.10)).doubleValue();
+    }
+
     private double getTotalAmount() {
-        return order.getLineItems().stream().map(OrderItem::totalAmount).count();
+        return order.getLineItems().stream().mapToDouble(OrderItem::totalAmount).sum();
     }
 
     private String getOrderItemsDetail() {
@@ -47,9 +50,9 @@ public class OrderReceipt {
     }
 
     private String getOrderItemDetail(OrderItem orderItem) {
-        return orderItem.getDescription() + '\t'
-                + orderItem.getPrice() + '\t'
-                + orderItem.getQuantity() + '\t'
+        return orderItem.getDescription() + '，'
+                + orderItem.getPrice() + " × "
+                + orderItem.getQuantity() + '，'
                 + orderItem.totalAmount() + '\n';
     }
 

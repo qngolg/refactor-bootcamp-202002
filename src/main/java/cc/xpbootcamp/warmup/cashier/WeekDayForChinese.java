@@ -11,14 +11,14 @@ import static java.time.DayOfWeek.THURSDAY;
 import static java.time.DayOfWeek.TUESDAY;
 import static java.time.DayOfWeek.WEDNESDAY;
 
-public enum  WeekDayForChinese {
-    Monday(MONDAY,"星期一"),
-    TuesDay(TUESDAY,"星期二"),
-    Wednesday(WEDNESDAY,"星期三"),
-    Thursday(THURSDAY,"星期四"),
-    Friday(FRIDAY,"星期五"),
-    Saturday(SATURDAY,"星期六"),
-    Sunday(SUNDAY,"星期日");
+public enum WeekDayForChinese {
+    Monday(MONDAY, "星期一"),
+    TuesDay(TUESDAY, "星期二"),
+    Wednesday(WEDNESDAY, "星期三"),
+    Thursday(THURSDAY, "星期四"),
+    Friday(FRIDAY, "星期五"),
+    Saturday(SATURDAY, "星期六"),
+    Sunday(SUNDAY, "星期日");
 
     private DayOfWeek day;
     private String value;

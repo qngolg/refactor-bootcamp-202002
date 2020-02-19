@@ -26,29 +26,29 @@ public class Order {
         return this.date.getDayOfWeek();
     }
 
-    private String getChineseWeekDay(){
+    private String getChineseWeekDay() {
         return WeekDayForChinese.from(getWeekDay());
     }
 
-    public BigDecimal getAmount(){
+    public BigDecimal getAmount() {
         return getLineItems()
                 .stream()
                 .map(OrderItem::totalAmount)
-                .reduce(BigDecimal.ZERO,BigDecimal::add);
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getSalesTax() {
         return getAmount().multiply(BigDecimal.valueOf(.10));
     }
 
-    public BigDecimal getDiscount(){
+    public BigDecimal getDiscount() {
         return getTotalWithNoDiscount()
                 .multiply(BigDecimal.valueOf(.02))
-                .setScale(2,BigDecimal.ROUND_HALF_UP);
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
-    public BigDecimal getTotal(){
-        if(hasDiscount()){
+    public BigDecimal getTotal() {
+        if (hasDiscount()) {
             return getTotalWithDiscount();
         }
         return getTotalWithNoDiscount();

@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
  * price and amount. It also calculates the sales tax @ 10% and prints as part
  * of order. It computes the total order amount (amount of individual lineItems +
  * total sales tax) and prints it.
- *
  */
 public class OrderReceipt {
     private static final String NEWLINE = "\n";
@@ -29,10 +28,10 @@ public class OrderReceipt {
 
         output.append(printOrderItems());
 
-        output.append(SEPARATED_LINE + NEWLINE);
+        output.append(SEPARATED_LINE).append(NEWLINE);
         output.append(SALES_TAX_HEADER).append(order.getSalesTax()).append(NEWLINE);
 
-        if(order.hasDiscount()){
+        if (order.hasDiscount()) {
             output.append(DISCOUNT_HEADER).append(order.getDiscount());
         }
 

@@ -26,9 +26,9 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
 
-        output.append(getHeaders()).append(NEWLINE);
+        output.append(printHeaders()).append(NEWLINE);
 
-        output.append(getOrderItemsDetail());
+        output.append(printOrderItems());
 
         output.append(SEPARATED_LINE + NEWLINE);
         output.append(SALES_TAX_HEADER).append(order.getSalesTax()).append(NEWLINE);
@@ -42,20 +42,20 @@ public class OrderReceipt {
         return output.toString();
     }
 
-    private String getOrderItemsDetail() {
+    private String printOrderItems() {
         return order.getLineItems().stream()
-                .map(this::getOrderItemDetail)
+                .map(this::printOrderItem)
                 .collect(Collectors.joining(NEWLINE));
     }
 
-    private String getOrderItemDetail(OrderItem orderItem) {
+    private String printOrderItem(OrderItem orderItem) {
         return orderItem.getDescription() + '，'
                 + orderItem.getPrice() + " × "
                 + orderItem.getQuantity() + '，'
                 + orderItem.totalAmount();
     }
 
-    private String getHeaders() {
+    private String printHeaders() {
         return TITLE + NEWLINE + order.getDate() + NEWLINE;
     }
 }

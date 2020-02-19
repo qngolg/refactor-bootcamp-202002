@@ -18,6 +18,8 @@ public class OrderReceipt {
     private static final String DISCOUNT_HEADER = "折扣：";
     private static final String TOTAL_AMOUNT_HEADER = "总价：";
     private Order order;
+    private static final String ORDER_ITEM_PRINT_TEMPLATE = "%s，%s × %s，%s";
+    private static final String DATE_PRINT_TEMPLATE = "%s年%s月%s日，%s";
 
     public OrderReceipt(Order order) {
         this.order = order;
@@ -54,10 +56,11 @@ public class OrderReceipt {
     }
 
     private String printOrderItem(OrderItem orderItem) {
-        return orderItem.getDescription() + '，'
-                + format(orderItem.getPrice()) + " × "
-                + orderItem.getQuantity() + '，'
-                + format(orderItem.totalAmount());
+        return String.format(ORDER_ITEM_PRINT_TEMPLATE,
+                orderItem.getDescription(),
+                format(orderItem.getPrice()),
+                orderItem.getQuantity(),
+                format(orderItem.totalAmount()));
     }
 
     private String printHeaders() {
@@ -65,10 +68,11 @@ public class OrderReceipt {
     }
 
     private String printDate() {
-        return order.getDate().getYear() + "年"
-                + order.getDate().getMonth().getValue() + "月"
-                + order.getDate().getDayOfMonth() + "日" + "，"
-                + getChineseWeekDay();
+        return String.format(DATE_PRINT_TEMPLATE,
+                order.getDate().getYear(),
+                order.getDate().getMonth().getValue(),
+                order.getDate().getDayOfMonth(),
+                getChineseWeekDay());
     }
 
     private String getChineseWeekDay() {

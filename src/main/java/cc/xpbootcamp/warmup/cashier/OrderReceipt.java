@@ -1,6 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.util.stream.Collectors;
 
 /**
@@ -29,10 +30,25 @@ public class OrderReceipt {
         totalAmount += totalSalesTax;
 
         output.append("----------------------\n");
-        output.append("税额：").append(totalSalesTax);
+        output.append("税额：").append(totalSalesTax)
+                .append("\n");
+        if(order.getWeekDay().equals(DayOfWeek.WEDNESDAY)){
+            double discount = getDiscount(totalAmount);
+            output.append("折扣：").append(discount);
+            totalAmount = BigDecimal.valueOf(totalAmount).subtract(BigDecimal.valueOf(discount)).doubleValue();
+        }
+
+
         output.append("\n");
         output.append("总价：").append(totalAmount);
         return output.toString();
+    }
+
+    private double getDiscount(double totalAmount) {
+        return BigDecimal.valueOf(totalAmount)
+                .multiply(BigDecimal.valueOf(.02))
+                .setScale(2,BigDecimal.ROUND_HALF_UP)
+                .doubleValue();
     }
 
     private double getTotalSalesTax(double totalAmount) {

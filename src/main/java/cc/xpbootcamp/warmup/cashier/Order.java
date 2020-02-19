@@ -21,7 +21,7 @@ public class Order {
         return this.date.getYear() + "年" + this.date.getMonth().getValue() + "月" + this.date.getDayOfMonth() + "日" + "，" + this.getChineseWeekDay();
     }
 
-    private DayOfWeek getWeekDay() {
+    public DayOfWeek getWeekDay() {
         return this.date.getDayOfWeek();
     }
 

@@ -18,16 +18,12 @@ public class Order {
         return orderItemList;
     }
 
-    public String getDate() {
-        return this.date.getYear() + "年" + this.date.getMonth().getValue() + "月" + this.date.getDayOfMonth() + "日" + "，" + this.getChineseWeekDay();
+    public LocalDate getDate() {
+        return this.date;
     }
 
     public DayOfWeek getWeekDay() {
         return this.date.getDayOfWeek();
-    }
-
-    private String getChineseWeekDay() {
-        return WeekDayForChinese.from(getWeekDay());
     }
 
     public BigDecimal getAmount() {

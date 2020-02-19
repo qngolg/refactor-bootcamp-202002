@@ -54,6 +54,17 @@ public class OrderReceipt {
     }
 
     private String printHeaders() {
-        return TITLE + NEWLINE + order.getDate() + NEWLINE;
+        return TITLE + NEWLINE + printDate() + NEWLINE;
+    }
+
+    private String printDate() {
+        return order.getDate().getYear() + "年"
+                + order.getDate().getMonth().getValue() + "月"
+                + order.getDate().getDayOfMonth() + "日" + "，"
+                + getChineseWeekDay();
+    }
+
+    private String getChineseWeekDay() {
+        return WeekDayForChinese.from(order.getWeekDay());
     }
 }

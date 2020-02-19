@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
  *
  */
 public class OrderReceipt {
+    private static final String NEWLINE = "\n";
+    private static final String TITLE = "===== 老王超市，值得信赖 =====";
+    private static final String SEPARATED_LINE = "----------------------";
+    private static final String SALES_TAX_HEADER = "税额：";
+    private static final String DISCOUNT_HEADER = "折扣：";
+    private static final String TOTAL_AMOUNT_HEADER = "总价：";
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -29,18 +35,18 @@ public class OrderReceipt {
         double totalSalesTax = getTotalSalesTax(totalAmount);
         totalAmount += totalSalesTax;
 
-        output.append("----------------------\n");
-        output.append("税额：").append(totalSalesTax)
-                .append("\n");
+        output.append(SEPARATED_LINE + NEWLINE);
+        output.append(SALES_TAX_HEADER).append(totalSalesTax)
+                .append(NEWLINE);
         if(order.getWeekDay().equals(DayOfWeek.WEDNESDAY)){
             double discount = getDiscount(totalAmount);
-            output.append("折扣：").append(discount);
+            output.append(DISCOUNT_HEADER).append(discount);
             totalAmount = BigDecimal.valueOf(totalAmount).subtract(BigDecimal.valueOf(discount)).doubleValue();
         }
 
 
-        output.append("\n");
-        output.append("总价：").append(totalAmount);
+        output.append(NEWLINE);
+        output.append(TOTAL_AMOUNT_HEADER).append(totalAmount);
         return output.toString();
     }
 
@@ -69,10 +75,10 @@ public class OrderReceipt {
         return orderItem.getDescription() + '，'
                 + orderItem.getPrice() + " × "
                 + orderItem.getQuantity() + '，'
-                + orderItem.totalAmount() + '\n';
+                + orderItem.totalAmount() + NEWLINE;
     }
 
     private String getHeaders() {
-        return "===== 老王超市，值得信赖 =====\n" + order.getDate() + "\n";
+        return TITLE + NEWLINE + order.getDate() + NEWLINE;
     }
 }

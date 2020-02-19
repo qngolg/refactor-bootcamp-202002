@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 
 class OrderReceiptTest {
 
@@ -44,6 +45,7 @@ class OrderReceiptTest {
         assertThat(output, containsString("----------------------"));
         assertThat(output, containsString("税额：5.3"));
         assertThat(output, containsString("总价：58.3"));
+        assertThat(output, not(containsString("折扣：")));
     }
 
     @Test

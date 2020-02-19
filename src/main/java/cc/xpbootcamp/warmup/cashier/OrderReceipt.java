@@ -55,7 +55,7 @@ public class OrderReceipt {
 
     private String printOrderItem(OrderItem orderItem) {
         return orderItem.getDescription() + '，'
-                +format(orderItem.getPrice()) + " × "
+                + format(orderItem.getPrice()) + " × "
                 + orderItem.getQuantity() + '，'
                 + format(orderItem.totalAmount());
     }

@@ -49,7 +49,7 @@ class OrderReceiptTest {
     }
 
     @Test
-    void shouldPrintLineItemAndSalesTaxAndDiscountOnWednesday(){
+    void shouldPrintLineItemAndSalesTaxAndDiscountOnWednesday() {
         List<OrderItem> orderItems = new ArrayList<OrderItem>() {{
             add(OrderItem.of("巧克力", 21.50, 2));
             add(OrderItem.of("小白菜", 10.00, 1));

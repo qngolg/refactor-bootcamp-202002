@@ -1,5 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.stream.Collectors;
 
 /**
@@ -29,15 +31,20 @@ public class OrderReceipt {
         output.append(printOrderItems());
 
         output.append(SEPARATED_LINE).append(NEWLINE);
-        output.append(SALES_TAX_HEADER).append(order.getSalesTax()).append(NEWLINE);
+        output.append(SALES_TAX_HEADER).append(format(order.getSalesTax())).append(NEWLINE);
 
         if (order.hasDiscount()) {
-            output.append(DISCOUNT_HEADER).append(order.getDiscount());
+            output.append(DISCOUNT_HEADER).append(format(order.getDiscount()));
         }
 
         output.append(NEWLINE);
-        output.append(TOTAL_AMOUNT_HEADER).append(order.getTotal());
+        output.append(TOTAL_AMOUNT_HEADER).append(format(order.getTotal()));
         return output.toString();
+    }
+
+    private String format(BigDecimal decimal) {
+        DecimalFormat format = new DecimalFormat("0.00");
+        return format.format(decimal);
     }
 
     private String printOrderItems() {
@@ -48,9 +55,9 @@ public class OrderReceipt {
 
     private String printOrderItem(OrderItem orderItem) {
         return orderItem.getDescription() + '，'
-                + orderItem.getPrice() + " × "
+                +format(orderItem.getPrice()) + " × "
                 + orderItem.getQuantity() + '，'
-                + orderItem.totalAmount();
+                + format(orderItem.totalAmount());
     }
 
     private String printHeaders() {

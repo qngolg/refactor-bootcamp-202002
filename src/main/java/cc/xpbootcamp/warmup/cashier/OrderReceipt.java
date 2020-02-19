@@ -54,6 +54,6 @@ public class OrderReceipt {
     }
 
     private String getHeaders() {
-        return "======Printing Orders======\n" + order.getCustomerName() + order.getCustomerAddress();
+        return "===== 老王超市，值得信赖 =====\n" + order.getDate() + "\n";
     }
 }

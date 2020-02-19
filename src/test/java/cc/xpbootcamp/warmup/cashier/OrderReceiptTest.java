@@ -2,6 +2,7 @@ package cc.xpbootcamp.warmup.cashier;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,17 +10,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
 class OrderReceiptTest {
-    @Test
-    void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<OrderItem>());
-        OrderReceipt receipt = new OrderReceipt(order);
-
-        String output = receipt.printReceipt();
-
-
-        assertThat(output, containsString("Mr X"));
-        assertThat(output, containsString("Chicago, 60601"));
-    }
 
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
@@ -28,7 +18,7 @@ class OrderReceiptTest {
             add(new OrderItem("biscuits", 5.0, 5));
             add(new OrderItem("chocolate", 20.0, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, orderItems));
+        OrderReceipt receipt = new OrderReceipt(new Order(null, orderItems));
 
         String output = receipt.printReceipt();
 
@@ -39,4 +29,21 @@ class OrderReceiptTest {
         assertThat(output, containsString("Total Amount\t71.5"));
     }
 
+    @Test
+    void shouldPrintTitleInformationOnOrder(){
+        Order order = new Order(null, new ArrayList<>());
+        OrderReceipt receipt = new OrderReceipt(order);
+
+        String output = receipt.printReceipt();
+        assertThat(output, containsString("===== 老王超市，值得信赖 ====="));
+    }
+
+    @Test
+    void shouldPrintDateInfomationOnOrder(){
+        Order order = new Order(LocalDate.of(2020,2,17), new ArrayList<>());
+        OrderReceipt receipt = new OrderReceipt(order);
+
+        String output = receipt.printReceipt();
+        assertThat(output, containsString("2020年2月17日，星期一"));
+    }
 }

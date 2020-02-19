@@ -32,8 +32,8 @@ class OrderReceiptTest {
     @Test
     void shouldPrintLineItemAndSalesTaxInformationNotInWednesday() {
         List<OrderItem> orderItems = new ArrayList<OrderItem>() {{
-            add(new OrderItem("巧克力", 21.50, 2));
-            add(new OrderItem("小白菜", 10.00, 1));
+            add(OrderItem.of("巧克力", 21.50, 2));
+            add(OrderItem.of("小白菜", 10.00, 1));
         }};
         LocalDate date = LocalDate.of(2020, 2, 17);
         OrderReceipt receipt = new OrderReceipt(new Order(date, orderItems));
@@ -49,8 +49,8 @@ class OrderReceiptTest {
     @Test
     void shouldPrintLineItemAndSalesTaxAndDiscountInWednesday(){
         List<OrderItem> orderItems = new ArrayList<OrderItem>() {{
-            add(new OrderItem("巧克力", 21.50, 2));
-            add(new OrderItem("小白菜", 10.00, 1));
+            add(OrderItem.of("巧克力", 21.50, 2));
+            add(OrderItem.of("小白菜", 10.00, 1));
         }};
         LocalDate date = LocalDate.of(2020, 2, 19);
         OrderReceipt receipt = new OrderReceipt(new Order(date, orderItems));

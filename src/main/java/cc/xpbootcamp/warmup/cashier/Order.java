@@ -30,36 +30,36 @@ public class Order {
         return WeekDayForChinese.from(getWeekDay());
     }
 
-    public double getAmount(){
-        return getLineItems().stream().mapToDouble(OrderItem::totalAmount).sum();
+    public BigDecimal getAmount(){
+        return getLineItems()
+                .stream()
+                .map(OrderItem::totalAmount)
+                .reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
-    public double getSalesTax() {
-        return BigDecimal.valueOf(getAmount()).multiply(BigDecimal.valueOf(.10)).doubleValue();
+    public BigDecimal getSalesTax() {
+        return getAmount().multiply(BigDecimal.valueOf(.10));
     }
 
-    public double getDiscount(){
-        return BigDecimal.valueOf(getTotalWithNoDiscount())
+    public BigDecimal getDiscount(){
+        return getTotalWithNoDiscount()
                 .multiply(BigDecimal.valueOf(.02))
-                .setScale(2,BigDecimal.ROUND_HALF_UP)
-                .doubleValue();
+                .setScale(2,BigDecimal.ROUND_HALF_UP);
     }
 
-    public double getTotal(){
+    public BigDecimal getTotal(){
         if(getWeekDay().equals(DayOfWeek.WEDNESDAY)){
             return getTotalWithDiscount();
         }
         return getTotalWithNoDiscount();
     }
 
-    private double getTotalWithNoDiscount() {
-        return getAmount() + getSalesTax();
+    private BigDecimal getTotalWithNoDiscount() {
+        return getAmount().add(getSalesTax());
     }
 
-    private double getTotalWithDiscount() {
-        return BigDecimal.valueOf(getAmount())
-                .add(BigDecimal.valueOf(getSalesTax()))
-                .subtract(BigDecimal.valueOf(getDiscount()))
-                .doubleValue();
+    private BigDecimal getTotalWithDiscount() {
+        return getAmount().add(getSalesTax())
+                .subtract(getDiscount());
     }
 }

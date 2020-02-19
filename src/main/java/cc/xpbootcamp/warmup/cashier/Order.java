@@ -48,10 +48,14 @@ public class Order {
     }
 
     public BigDecimal getTotal(){
-        if(getWeekDay().equals(DayOfWeek.WEDNESDAY)){
+        if(hasDiscount()){
             return getTotalWithDiscount();
         }
         return getTotalWithNoDiscount();
+    }
+
+    public boolean hasDiscount() {
+        return getWeekDay().equals(DayOfWeek.WEDNESDAY);
     }
 
     private BigDecimal getTotalWithNoDiscount() {

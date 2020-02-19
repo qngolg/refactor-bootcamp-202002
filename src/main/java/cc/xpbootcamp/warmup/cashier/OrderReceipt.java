@@ -1,6 +1,5 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import java.time.DayOfWeek;
 import java.util.stream.Collectors;
 
 /**
@@ -33,7 +32,7 @@ public class OrderReceipt {
         output.append(SEPARATED_LINE + NEWLINE);
         output.append(SALES_TAX_HEADER).append(order.getSalesTax()).append(NEWLINE);
 
-        if(order.getWeekDay().equals(DayOfWeek.WEDNESDAY)){
+        if(order.hasDiscount()){
             output.append(DISCOUNT_HEADER).append(order.getDiscount());
         }
 

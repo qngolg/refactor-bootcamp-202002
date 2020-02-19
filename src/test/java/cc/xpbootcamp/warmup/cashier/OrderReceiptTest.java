@@ -13,7 +13,7 @@ class OrderReceiptTest {
 
     @Test
     void shouldPrintTitleInformationOnOrder() {
-        Order order = new Order(null, new ArrayList<>());
+        Order order = new Order(LocalDate.now(), new ArrayList<>());
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();

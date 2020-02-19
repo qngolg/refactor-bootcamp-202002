@@ -1,6 +1,5 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.util.stream.Collectors;
 
@@ -27,42 +26,20 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
 
-        output.append(getHeaders());
+        output.append(getHeaders()).append(NEWLINE);
 
         output.append(getOrderItemsDetail());
 
-        double totalAmount = getTotalAmount();
-        double totalSalesTax = getTotalSalesTax(totalAmount);
-        totalAmount += totalSalesTax;
-
         output.append(SEPARATED_LINE + NEWLINE);
-        output.append(SALES_TAX_HEADER).append(totalSalesTax)
-                .append(NEWLINE);
+        output.append(SALES_TAX_HEADER).append(order.getSalesTax()).append(NEWLINE);
+
         if(order.getWeekDay().equals(DayOfWeek.WEDNESDAY)){
-            double discount = getDiscount(totalAmount);
-            output.append(DISCOUNT_HEADER).append(discount);
-            totalAmount = BigDecimal.valueOf(totalAmount).subtract(BigDecimal.valueOf(discount)).doubleValue();
+            output.append(DISCOUNT_HEADER).append(order.getDiscount());
         }
 
-
         output.append(NEWLINE);
-        output.append(TOTAL_AMOUNT_HEADER).append(totalAmount);
+        output.append(TOTAL_AMOUNT_HEADER).append(order.getTotal());
         return output.toString();
-    }
-
-    private double getDiscount(double totalAmount) {
-        return BigDecimal.valueOf(totalAmount)
-                .multiply(BigDecimal.valueOf(.02))
-                .setScale(2,BigDecimal.ROUND_HALF_UP)
-                .doubleValue();
-    }
-
-    private double getTotalSalesTax(double totalAmount) {
-        return BigDecimal.valueOf(totalAmount).multiply(BigDecimal.valueOf(.10)).doubleValue();
-    }
-
-    private double getTotalAmount() {
-        return order.getLineItems().stream().mapToDouble(OrderItem::totalAmount).sum();
     }
 
     private String getOrderItemsDetail() {

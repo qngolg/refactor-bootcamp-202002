@@ -17,9 +17,10 @@ public class OrderReceipt {
     private static final String SALES_TAX_HEADER = "税额：";
     private static final String DISCOUNT_HEADER = "折扣：";
     private static final String TOTAL_AMOUNT_HEADER = "总价：";
-    private Order order;
     private static final String ORDER_ITEM_PRINT_TEMPLATE = "%s，%s × %s，%s";
     private static final String DATE_PRINT_TEMPLATE = "%s年%s月%s日，%s";
+
+    private Order order;
 
     public OrderReceipt(Order order) {
         this.order = order;

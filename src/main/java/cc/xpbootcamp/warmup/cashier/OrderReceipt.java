@@ -68,14 +68,14 @@ public class OrderReceipt {
     private String getOrderItemsDetail() {
         return order.getLineItems().stream()
                 .map(this::getOrderItemDetail)
-                .collect(Collectors.joining(""));
+                .collect(Collectors.joining(NEWLINE));
     }
 
     private String getOrderItemDetail(OrderItem orderItem) {
         return orderItem.getDescription() + '，'
                 + orderItem.getPrice() + " × "
                 + orderItem.getQuantity() + '，'
-                + orderItem.totalAmount() + NEWLINE;
+                + orderItem.totalAmount();
     }
 
     private String getHeaders() {

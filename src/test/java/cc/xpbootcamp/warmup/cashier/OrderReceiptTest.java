@@ -22,7 +22,7 @@ class OrderReceiptTest {
     }
 
     @Test
-    void shouldPrintDateInfomationOnOrder() {
+    void shouldPrintDateInformationOnOrder() {
         Order order = new Order(LocalDate.of(2020, 2, 17), new ArrayList<>());
         OrderReceipt receipt = new OrderReceipt(order);
 

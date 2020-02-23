@@ -2,6 +2,8 @@ package cc.xpbootcamp.warmup.cashier;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -18,7 +20,7 @@ public class OrderReceipt {
     private static final String DISCOUNT_HEADER = "折扣：";
     private static final String TOTAL_AMOUNT_HEADER = "总价：";
     private static final String ORDER_ITEM_PRINT_TEMPLATE = "%s，%s × %s，%s";
-    private static final String DATE_PRINT_TEMPLATE = "%s年%s月%s日，%s";
+    private static final String DATE_PRINT_PATTERN = "yyyy年M月dd日，E";
 
     private Order order;
 
@@ -69,14 +71,6 @@ public class OrderReceipt {
     }
 
     private String printDate() {
-        return String.format(DATE_PRINT_TEMPLATE,
-                order.getDate().getYear(),
-                order.getDate().getMonth().getValue(),
-                order.getDate().getDayOfMonth(),
-                getChineseWeekDay());
-    }
-
-    private String getChineseWeekDay() {
-        return WeekDayForChinese.from(order.getWeekDay());
+        return order.getDate().format(DateTimeFormatter.ofPattern(DATE_PRINT_PATTERN, Locale.CHINA));
     }
 }
